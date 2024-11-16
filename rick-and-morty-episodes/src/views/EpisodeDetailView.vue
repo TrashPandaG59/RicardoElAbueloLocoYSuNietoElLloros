@@ -35,7 +35,7 @@
   
   <script>
   import CharacterCard from '../components/CaracterCard.vue'
-  
+  import '../assets/styles/EpisodeDetailView.scss'
   export default {
     name: 'EpisodeDetailView',
     components: {
@@ -88,85 +88,4 @@
     }
   }
   </script>
-  
-  <style scoped>
-  .episode-detail {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .back-button {
-    margin-bottom: 20px;
-  }
-  
-  .back-button button {
-    background-color: #97ce4c;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .back-button button:hover {
-    background-color: #86b743;
-  }
-  
-  .episode-info {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  
-  .episode-info h2 {
-    color: #2c3e50;
-    margin-bottom: 15px;
-  }
-  
-  .episode-info p {
-    color: #666;
-    margin: 8px 0;
-  }
-  
-  .characters-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-  }
-  
-  .loading {
-    text-align: center;
-    padding: 20px;
-    color: #666;
-  }
-  
-  .error {
-    color: #dc3545;
-    padding: 20px;
-    text-align: center;
-    background-color: #ffe6e6;
-    border-radius: 4px;
-    margin: 20px 0;
-  }
-  
-  @media (max-width: 768px) {
-    .characters-grid {
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .episode-detail {
-      padding: 10px;
-    }
-    
-    .characters-grid {
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    }
-  }
-  </style>
   
