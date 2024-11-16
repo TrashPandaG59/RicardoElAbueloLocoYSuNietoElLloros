@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       selectedSeason: '',
-      seasons: [1, 2, 3, 4, 5, 6] // Actualizado con todas las temporadas
+      seasons: [1, 2, 3, 4, 5] // Actualizado con todas las temporadas
     }
   },
   methods: {
