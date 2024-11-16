@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import '../src/assets/styles/app.scss'
 export default {
   name: 'App'
 }
