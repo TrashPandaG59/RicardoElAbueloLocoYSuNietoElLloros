@@ -1,11 +1,123 @@
 .app {
-    font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
+}
+
+.main-header {
+  background-color: var(--header-bg);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, 
+      rgba(151, 206, 76, 0.4), 
+      rgba(151, 206, 76, 0)
+    );
+    z-index: 1;
   }
-  
-  header {
-    background-color: #97ce4c;
-    color: white;
-    padding: 20px;
-    text-align: center;
+
+  .title-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
   }
-  
+
+  .main-title {
+    margin: 0;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 
+      3px 3px 0 rgba(0,0,0,0.2),
+      -1px -1px 0 rgba(0,0,0,0.2),
+      1px -1px 0 rgba(0,0,0,0.2),
+      -1px 1px 0 rgba(0,0,0,0.2);
+    letter-spacing: 2px;
+    transform: perspective(500px) rotateX(10deg);
+    animation: titleFloat 3s ease-in-out infinite;
+  }
+
+  .subtitle {
+    margin: 1rem 0 0;
+    font-size: 1.4rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    font-weight: 400;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.4;
+    animation: subtitleGlow 2s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes titleFloat {
+  0%, 100% {
+    transform: perspective(500px) rotateX(10deg) translateY(0);
+  }
+  50% {
+    transform: perspective(500px) rotateX(10deg) translateY(-10px);
+  }
+}
+
+@keyframes subtitleGlow {
+  from {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  }
+  to {
+    text-shadow: 
+      0 0 10px rgba(255,255,255,0.5),
+      0 0 20px rgba(151, 206, 76, 0.3);
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .main-header {
+    padding: 1.5rem 1rem;
+
+    .main-title {
+      font-size: 2.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      padding: 0 10px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .main-header {
+    padding: 1rem;
+
+    .main-title {
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+    }
+  }
+}
+
+// Ajustes para modo oscuro
+body.dark-mode .main-header {
+  &::before {
+    background: linear-gradient(45deg, 
+      rgba(44, 92, 30, 0.4), 
+      rgba(44, 92, 30, 0)
+    );
+  }
+}

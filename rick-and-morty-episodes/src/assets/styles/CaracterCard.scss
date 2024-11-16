@@ -1,20 +1,36 @@
 
 .character-card {
-  border: 1px solid #ddd;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 10px;
-  text-align: center;
-  background: white;
-  transition: transform 0.2s;
-}
+  overflow: hidden;
+  transition: all 0.3s ease;
 
-.character-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px var(--shadow-color);
+  }
 
-.character-card img {
-  width: 100%;
-  border-radius: 4px;
-}
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
 
+  .character-info {
+    padding: 15px;
+    background-color: var(--card-bg);
+    transition: background-color 0.3s ease;
+
+    h3 {
+      color: var(--text-color);
+      margin: 0 0 10px 0;
+    }
+
+    p {
+      color: var(--text-color);
+      margin: 5px 0;
+      opacity: 0.9;
+    }
+  }
+}

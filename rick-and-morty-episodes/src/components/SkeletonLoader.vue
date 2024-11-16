@@ -1,0 +1,58 @@
+<template>
+    <div class="skeleton-grid">
+      <div v-for="n in 6" :key="n" class="skeleton-card">
+        <div class="skeleton-title"></div>
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    name: 'SkeletonLoader'
+  }
+  </script>
+  
+  <style lang="scss" scoped>
+  .skeleton-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .skeleton-card {
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: 8px;
+    
+    .skeleton-title, .skeleton-text {
+      background: linear-gradient(
+        90deg,
+        var(--card-bg) 0%,
+        rgba(255,255,255,0.1) 50%,
+        var(--card-bg) 100%
+      );
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      height: 20px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+  
+    .skeleton-title {
+      height: 30px;
+      width: 80%;
+    }
+  
+    .skeleton-text {
+      width: 60%;
+    }
+  }
+  
+  @keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  </style>
+  
