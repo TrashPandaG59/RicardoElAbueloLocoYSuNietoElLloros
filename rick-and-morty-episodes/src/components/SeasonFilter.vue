@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import '../assets/styles/components/SeasonFilter.scss'
 export default {
   name: 'SeasonFilter',
   emits: ['filter'],
@@ -26,27 +27,3 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-.season-filter {
-  select {
-    padding: 8px 12px;
-    border-radius: 4px;
-    border: 1px solid #ddd;  // Color fijo
-    background-color: white; // Color fijo
-    color: #333;            // Color fijo
-    font-size: 1rem;
-    cursor: pointer;
-    min-width: 200px;
-
-    &:focus {
-      outline: none;
-      border-color: #97ce4c;  // Color fijo del primary
-    }
-
-    option {
-      background-color: white; // Color fijo
-      color: #333;            // Color fijo
-    }
-  }
-}
-</style>

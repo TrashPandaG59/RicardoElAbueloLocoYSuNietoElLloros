@@ -8,7 +8,7 @@
   </template>
   
   <script>
-  import '../assets/styles/CaracterCard.scss'
+  import '../assets/styles/components/CaracterCard.scss'
   export default {
     name: 'CharacterCard',
     props: {

@@ -35,7 +35,7 @@
   
   <script>
   import CharacterCard from '../components/CaracterCard.vue'
-  import '../assets/styles/EpisodeDetailView.scss'
+  import '../assets/styles/views/EpisodeDetailView.scss'
   export default {
     name: 'EpisodeDetailView',
     components: {

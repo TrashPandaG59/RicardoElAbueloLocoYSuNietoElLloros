@@ -11,7 +11,7 @@
   
   <script>
   import { ref } from 'vue'
-  
+  import '../assets/styles/components/SearchBar.scss'
   export default {
     name: 'SearchBar',
     emits: ['search'],
@@ -29,24 +29,4 @@
     }
   }
   </script>
-  
-  <style lang="scss" scoped>
-  .search-container {
-    margin: 20px 0;
-    
-    input {
-      width: 100%;
-      max-width: 400px;
-      padding: 10px;
-      border: 2px solid var(--border-color);
-      border-radius: 8px;
-      font-size: 16px;
-      
-      &:focus {
-        outline: none;
-        border-color: var(--primary-color);
-      }
-    }
-  }
-  </style>
   
