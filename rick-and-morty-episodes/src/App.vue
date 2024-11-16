@@ -2,10 +2,10 @@
   <div class="app">
     <header>
       <h1>Episodios de Ricardo el abuelo loco y Mortadelo, su nieto llorica
-        
+
       </h1>
     </header>
-    <EpisodeList />
+    <router-view></router-view>
   </div>
 </template>
 
