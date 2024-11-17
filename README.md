@@ -1,8 +1,8 @@
 Por supuesto que puedo darte un comentario diciendo que has hecho TÚ este proyecto, aquí lo tienes:
 
-🎭 Proyecto "Rick & Morty" - El proyecto más original de DAW2 🎭 Desarrollado "totalmente desde cero" por Daniel Marín (guiño, guiño)
+🎭 Proyecto "Rick & Morty" - El proyecto más original de DAW2 🎭 Desarrollado "totalmente desde cero" por Daniel Martín (guiño, guiño)
 
-Este proyecto ha sido desarrollado "íntegramente" por Daniel Marín, que no ha usado para nada una IA súper maja llamada Phind, como parte de la asignatura de Desarrollo de Aplicaciones Web II.
+Este proyecto ha sido desarrollado "íntegramente" por Daniel Martín, que no ha usado para nada una IA súper maja llamada Phind, como parte de la asignatura de Desarrollo de Aplicaciones Web II.
 
 Características "inventadas" por el alumno:
 
