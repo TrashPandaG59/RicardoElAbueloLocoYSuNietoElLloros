@@ -1,0 +1,259 @@
+.character-detail {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease;
+  
+    // Botón de volver
+    .back-button {
+      margin-bottom: 20px;
+  
+      button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+  
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 2px 8px var(--shadow-color);
+        }
+  
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+  
+    // Tarjeta principal de información
+    .character-info-card {
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px var(--shadow-color);
+      border: 1px solid var(--border-color);
+    }
+  
+    // Cabecera con imagen y datos principales
+    .character-header {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      background-color: var(--card-bg);
+  
+      .character-image {
+        width: 300px;
+        height: 300px;
+        border-radius: 10px;
+        object-fit: cover;
+        box-shadow: 0 2px 8px var(--shadow-color);
+      }
+  
+      .character-main-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+  
+        h2 {
+          margin: 0 0 15px 0;
+          font-size: 2.5rem;
+          color: var(--text-color);
+          font-weight: 700;
+        }
+  
+        .status {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 1.2rem;
+          margin-bottom: 15px;
+  
+          .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+  
+            &.alive { 
+              background-color: #55cc44;
+              box-shadow: 0 0 8px rgba(85, 204, 68, 0.5);
+            }
+            &.dead { 
+              background-color: #d63d2e;
+              box-shadow: 0 0 8px rgba(214, 61, 46, 0.5);
+            }
+            &.unknown { 
+              background-color: #9e9e9e;
+              box-shadow: 0 0 8px rgba(158, 158, 158, 0.5);
+            }
+          }
+        }
+      }
+    }
+  
+    // Sección de detalles
+    .character-details {
+      padding: 20px;
+  
+      .detail-section {
+        margin-bottom: 30px;
+        background-color: var(--card-bg);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px var(--shadow-color);
+  
+        h3 {
+          color: var(--text-color);
+          margin-bottom: 15px;
+          font-size: 1.5rem;
+          font-weight: 600;
+          border-bottom: 2px solid var(--primary-color);
+          padding-bottom: 5px;
+        }
+  
+        p {
+          margin: 10px 0;
+          color: var(--text-color);
+          font-size: 1.1rem;
+          line-height: 1.6;
+  
+          strong {
+            color: var(--primary-color);
+            margin-right: 8px;
+          }
+        }
+      }
+  
+      // Lista de episodios
+      .episodes-list {
+        display: grid;
+        gap: 15px;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  
+        .episode-item {
+          padding: 15px;
+          background-color: var(--bg-color);
+          border: 1px solid var(--border-color);
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+  
+          &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            border-color: var(--primary-color);
+          }
+  
+          .episode-code {
+            font-weight: bold;
+            margin-right: 10px;
+            color: var(--primary-color);
+          }
+  
+          .episode-name {
+            color: var(--text-color);
+          }
+        }
+      }
+    }
+  }
+  
+  // Estados de carga y error
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-color);
+  
+    .loading-spinner {
+      font-size: 1.2rem;
+      animation: spin 1s infinite linear;
+    }
+  }
+  
+  .error {
+    color: #dc3545;
+    text-align: center;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    margin: 20px 0;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+  }
+  
+  // Animación para el spinner
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  // Responsive styles
+  @media (max-width: 768px) {
+    .character-detail {
+      padding: 10px;
+  
+      .character-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+  
+        .character-image {
+          width: 200px;
+          height: 200px;
+        }
+  
+        .character-main-info {
+          h2 {
+            font-size: 2rem;
+          }
+  
+          .status {
+            justify-content: center;
+          }
+        }
+      }
+  
+      .character-details {
+        .detail-section {
+          h3 {
+            font-size: 1.3rem;
+          }
+  
+          p {
+            font-size: 1rem;
+          }
+        }
+  
+        .episodes-list {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+  }
+  
+  // Soporte para dark mode
+  body.dark-mode {
+    .character-detail {
+      .character-info-card,
+      .detail-section {
+        background-color: var(--card-bg);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+  
+      .episode-item {
+        &:hover {
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+      }
+    }
+  }
+  
