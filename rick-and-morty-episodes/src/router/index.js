@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import EpisodesView from '../views/EpisodesView.vue'
 import EpisodeDetailView from '../views/EpisodeDetailView.vue'
 import CharacterDetailView from '../views/CharacterDetailView.vue'
-
+import LocationsView from '../views/LocationsView.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -22,6 +22,11 @@ const router = createRouter({
       name: 'character-detail',
       component: CharacterDetailView,
       props: true
+    },
+    {
+      path: '/locations',
+      name: 'locations',
+      component: LocationsView
     }
   ]
 })

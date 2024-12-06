@@ -6,6 +6,9 @@
     <div class="controls">
       <SearchBar @search="handleSearch" />
       <SeasonFilter @filter="handleSeasonFilter" />
+      <button class="dimension-button" @click="goToDimensions">
+        Explorar Dimensiones 🌍
+      </button>
       <button @click="toggleDarkMode" class="theme-toggle">
         {{ isDarkMode ? '☀️' : '🌙' }}
       </button>
@@ -46,9 +49,8 @@
         />
       </div>
     </TransitionGroup>
-
-    <!-- Pagination -->
-    <div class="pagination" v-if="filteredEpisodes.length">
+<!-- Pagination -->
+<div class="pagination" v-if="filteredEpisodes.length">
       <button 
         :disabled="currentPage === 1"
         @click="currentPage--">
@@ -77,6 +79,7 @@ import SkeletonLoader from './SkeletonLoader.vue'
 import ErrorBoundary from './ErrorBoundary.vue'
 import { useDarkMode } from '@/composables/useDarkMOde';
 import { useFavorites } from '../composables/useFavorites'
+import { useToast } from "vue-toastification"
 export default {
   name: 'EpisodeList',
   components: {
@@ -88,11 +91,13 @@ export default {
   },
   setup() {
     const router = useRouter()
+    const toast = useToast()
     const { isDarkMode, toggleDarkMode } = useDarkMode()
     const { favorites, toggleFavorite, isFavorite } = useFavorites()
 
     return {
       router,
+      toast,
       isDarkMode,
       toggleDarkMode,
       favorites,
@@ -153,25 +158,40 @@ export default {
         }
         
         this.episodes = allEpisodes;
+        this.toast.success("Episodios cargados correctamente");
       } catch (err) {
         this.error = 'Error al cargar los episodios: ' + err.message;
+        this.toast.error("Error al cargar los episodios");
       } finally {
         this.loading = false;
       }
     },
     goToEpisode(id) {
       this.router.push({ name: 'episode-detail', params: { id } })
+      this.toast.info(`Yendo al episodio ${id}`);
     },
     handleSeasonFilter(season) {
       this.selectedSeason = season;
       this.currentPage = 1;
+      if(season) {
+        this.toast.info(`Mostrando temporada ${season}`);
+      } else {
+        this.toast.info("Mostrando todas las temporadas");
+      }
     },
     handleSearch(query) {
       this.searchQuery = query;
       this.currentPage = 1;
+      if(query) {
+        this.toast.info(`Buscando: "${query}"`);
+      }
     },
     handleShare(data) {
       console.log('Compartiendo:', data);
+    },
+    goToDimensions() {
+      this.router.push('/locations');
+      this.toast.info("Explorando dimensiones...");
     }
   },
   watch: {
@@ -180,6 +200,9 @@ export default {
     },
     searchQuery() {
       this.currentPage = 1;
+    },
+    currentPage(newPage) {
+      this.toast.info(`Página ${newPage}`);
     }
   },
   mounted() {

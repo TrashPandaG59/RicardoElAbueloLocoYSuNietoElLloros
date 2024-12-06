@@ -6,13 +6,19 @@
         
       </div>
     </header>
+    <IdleDetector />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import '../src/assets/styles/app.scss'
+import IdleDetector from './components/IdleDetector.vue'
+
 export default {
-  name: 'App'
+  name: 'App', 
+  components: {
+    IdleDetector
+  }
 }
 </script>
