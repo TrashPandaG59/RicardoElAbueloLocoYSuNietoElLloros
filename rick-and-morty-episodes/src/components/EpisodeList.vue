@@ -12,6 +12,14 @@
       <button @click="toggleDarkMode" class="theme-toggle">
         {{ isDarkMode ? '☀️' : '🌙' }}
       </button>
+      <button @click="showLoginModal = true">
+      {{ isLoggedIn ? 'Mi Cuenta' : 'Iniciar Sesión' }}
+    </button>
+    <LoginModal 
+      :show="showLoginModal" 
+      @close="showLoginModal = false"
+      @login-success="handleLoginSuccess"
+    />
     </div>
 
     <!-- Loading state -->
@@ -67,6 +75,7 @@
 </template>
 
 <script>
+import LoginModal from './LoginModal.vue'
 import '../assets/styles/episodeList.scss'
 import '../assets/styles/transitions.scss';
 import '../assets//styles/theme.scss';
@@ -83,6 +92,7 @@ import { useToast } from "vue-toastification"
 export default {
   name: 'EpisodeList',
   components: {
+    LoginModal,
     SearchBar,
     SeasonFilter,
     ShareButtons,
@@ -107,6 +117,8 @@ export default {
   },
   data() {
     return {
+      showLoginModal: false,
+      isLoggedIn: false,
       episodes: [],
       loading: true,
       error: null,
@@ -139,74 +151,121 @@ export default {
     }
   },
   methods: {
-    async fetchEpisodes() {
-      this.loading = true;
-      this.error = null;
-      try {
-        // Cargar todos los episodios de una vez
-        const allEpisodes = [];
-        let page = 1;
-        
-        while (true) {
-          const response = await fetch(`https://rickandmortyapi.com/api/episode?page=${page}`);
-          const data = await response.json();
-          
-          allEpisodes.push(...data.results);
-          
-          if (!data.info.next) break;
-          page++;
-        }
-        
-        this.episodes = allEpisodes;
-        this.toast.success("Episodios cargados correctamente");
-      } catch (err) {
-        this.error = 'Error al cargar los episodios: ' + err.message;
-        this.toast.error("Error al cargar los episodios");
-      } finally {
-        this.loading = false;
+  // Métodos existentes para episodios
+  async fetchEpisodes() {
+    this.loading = true;
+    this.error = null;
+    try {
+      // Cargar todos los episodios de una vez
+      const allEpisodes = [];
+      let page = 1;
+      while (true) {
+        const response = await fetch(`https://rickandmortyapi.com/api/episode?page=${page}`);
+        const data = await response.json();
+        allEpisodes.push(...data.results);
+        if (!data.info.next) break;
+        page++;
       }
-    },
-    goToEpisode(id) {
-      this.router.push({ name: 'episode-detail', params: { id } })
-      this.toast.info(`Yendo al episodio ${id}`);
-    },
-    handleSeasonFilter(season) {
-      this.selectedSeason = season;
-      this.currentPage = 1;
-      if(season) {
-        this.toast.info(`Mostrando temporada ${season}`);
-      } else {
-        this.toast.info("Mostrando todas las temporadas");
-      }
-    },
-    handleSearch(query) {
-      this.searchQuery = query;
-      this.currentPage = 1;
-      if(query) {
-        this.toast.info(`Buscando: "${query}"`);
-      }
-    },
-    handleShare(data) {
-      console.log('Compartiendo:', data);
-    },
-    goToDimensions() {
-      this.router.push('/locations');
-      this.toast.info("Explorando dimensiones...");
+      this.episodes = allEpisodes;
+      this.toast.success("Episodios cargados correctamente");
+    } catch (err) {
+      this.error = 'Error al cargar los episodios: ' + err.message;
+      this.toast.error("Error al cargar los episodios");
+    } finally {
+      this.loading = false;
     }
   },
-  watch: {
-    selectedSeason() {
-      this.currentPage = 1;
-    },
-    searchQuery() {
-      this.currentPage = 1;
-    },
-    currentPage(newPage) {
-      this.toast.info(`Página ${newPage}`);
+  
+  goToEpisode(id) {
+    this.router.push({ name: 'episode-detail', params: { id } });
+    this.toast.info(`Yendo al episodio ${id}`);
+  },
+  
+  handleSeasonFilter(season) {
+    this.selectedSeason = season;
+    this.currentPage = 1;
+    if(season) {
+      this.toast.info(`Mostrando temporada ${season}`);
+    } else {
+      this.toast.info("Mostrando todas las temporadas");
     }
   },
-  mounted() {
-    this.fetchEpisodes()
+  
+  handleSearch(query) {
+    this.searchQuery = query;
+    this.currentPage = 1;
+    if(query) {
+      this.toast.info(`Buscando: "${query}"`);
+    }
+  },
+  
+  handleShare(data) {
+    console.log('Compartiendo:', data);
+  },
+  
+  goToDimensions() {
+    this.router.push('/locations');
+    this.toast.info("Explorando dimensiones...");
+  },
+  
+  // Nuevos métodos para autenticación
+  handleLoginSuccess(user) {
+    this.isLoggedIn = true;
+    this.currentUser = user;
+    console.log('Usuario conectado:', user);
+    this.toast.success(`¡Bienvenido, ${user.username || user.email}!`);
+    // Actualizar el estado de la aplicación según sea necesario
+  },
+  
+  checkAuthStatus() {
+    // Verificar si hay un token guardado al cargar la página
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    
+    if (token && user) {
+      this.isLoggedIn = true;
+      this.currentUser = JSON.parse(user);
+      console.log('Sesión recuperada para:', this.currentUser);
+    }
+  },
+  
+  logout() {
+    // Eliminar token y datos de usuario
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.isLoggedIn = false;
+    this.currentUser = null;
+    this.toast.info("Has cerrado sesión");
+    // Opcional: redirigir a la página principal
+    if (this.router.currentRoute.name !== 'home') {
+      this.router.push('/');
+    }
   }
-}
+},
+
+watch: {
+  selectedSeason() {
+    this.currentPage = 1;
+  },
+  searchQuery() {
+    this.currentPage = 1;
+  },
+  currentPage(newPage) {
+    this.toast.info(`Página ${newPage}`);
+  },
+  isLoggedIn(newValue) {
+    // Opcional: realizar acciones cuando cambia el estado de autenticación
+    if (newValue) {
+      console.log('Usuario ha iniciado sesión');
+      // Puedes cargar datos específicos del usuario aquí
+    } else {
+      console.log('Usuario ha cerrado sesión');
+    }
+  }
+},
+
+mounted() {
+  this.fetchEpisodes();
+  this.checkAuthStatus();
+},}
 </script>
